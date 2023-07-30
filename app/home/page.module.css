@@ -1,0 +1,5 @@
+.container {
+  display: grid;
+  grid-template-rows: 25% 50% 25%;
+  height: 100%;
+}
