@@ -14,15 +14,42 @@ export default function page() {
         <ConnectButton label="login" />
       </nav>
       <main>
-        <div className="flex flex-col gap-3">
-          <span className="text-3xl">Explore Real Estate</span>
-          <span className="flex items-center gap-3 text-3xl">
-            on
-            <Image src="/ethereum-logo.png" alt="eth" width="40" height="40" />
-            Ethereum
-          </span>
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-3">
+            <span className="text-3xl">Explore Real Estate</span>
+            <span className="flex items-center gap-3 text-3xl">
+              on
+              <Image
+                src="/ethereum-logo.png"
+                alt="eth"
+                width="40"
+                height="40"
+              />
+              Ethereum
+            </span>
 
-          <h2>Explore NFTs from the Reservoir Protocol</h2>
+            <h2>Find Multi-chain Real Estate near you!</h2>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <span className="text-3xl">Top Performers</span>
+          </div>
+          {/* TODO: continue here */}
+          <div className="flex">
+            <div className="flex flex-col gap-3">
+              <div>
+                <Image
+                  src="/multifamily1.jpeg"
+                  alt="eth"
+                  width="75"
+                  height="75"
+                />
+              </div>
+              <div>
+                <Image src="/mf-1.jpeg" alt="eth" width="75" height="75" />
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       <footer></footer>

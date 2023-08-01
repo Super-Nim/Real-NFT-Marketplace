@@ -31,6 +31,6 @@ html {
   height: 100%;
 }
 
-html div {
+body > div {
   height: 100%;
 }
