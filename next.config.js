@@ -7,6 +7,16 @@ const nextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding", "fs");
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "explorer.reservoir.tools",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
