@@ -1,12 +1,20 @@
-"use client";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import styles from "./page.module.css";
 import Image from "next/image";
+import axios from "axios";
+import AssetOverview from "./components/asset-overview";
 
 // TODO: HTML structure for home page
-// 1. try getStaticProps to get data from reservoir
-export default function page() {
+// 0. add commercial real estate to collection
+// 1. call reservoir directly
+export default async function page() {
   const mockData = ["1", "2", "3", "4", "5"];
+  const data = await getTokens();
+
+  data.tokens.map((token: any) => {
+    return console.log(token.token.image);
+  });
+
   return (
     <div className={styles.container}>
       <nav className="flex justify-between items-start">
@@ -36,48 +44,33 @@ export default function page() {
             <span className="text-3xl">Top Performers</span>
           </div>
           {/*  abstract into component */}
-          <div className="flex">
-            <div className="flex flex-col gap-3">
-              <div className="flex gap-3">
-                <Image
-                  src="/multifamily1.jpeg"
-                  alt="eth"
-                  width="75"
-                  height="75"
-                />
-                <div>
-                  <span>Multi-Family</span>
-                  <div className="flex">
-                    <Image
-                      src="https://explorer.reservoir.tools/api/reservoir/ethereum/redirect/currency/0x0000000000000000000000000000000000000000/icon/v1"
-                      alt=""
-                      width="15"
-                      height="15"
-                    />
-                    <p>0.01</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-1">
-                {mockData &&
-                  mockData.map((i) => (
-                    <div key={i}>
-                      <Image
-                        src="/mf-1.jpeg"
-                        alt="eth"
-                        width="75"
-                        height="75"
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
+          {data.tokens.length > 0 ? (
+            data.tokens.map((obj: any) => (
+              <AssetOverview
+                title={obj.token.name}
+                imageUrl={obj.token.image}
+                key={obj.token.tokenId}
+              />
+            ))
+          ) : (
+            <>Loading...</>
+            // <Suspense fallback={<Loading />} />
+          )}
         </div>
       </main>
       <footer></footer>
     </div>
   );
+}
+// continue here
+async function getTokens() {
+  const { data } = await axios.get(
+    "https://api-goerli.reservoir.tools/tokens/v6",
+    {
+      params: { collection: "0x83114eabba1984751f19d6cc2acb940fbc45fc48" },
+    }
+  );
+  return data;
 }
 
 // Add getStaticProps
