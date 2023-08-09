@@ -1,6 +1,25 @@
+"use client";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+
 export default function Create() {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (submitData: any) => {
+    const formData = new FormData();
+    formData.append("file", submitData.file[0]);
+
+    const { data } = await axios
+      .post("http://localhost:3000/api//metadata", {
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => res);
+    alert(JSON.stringify(`axios `, data));
+  };
+
   return (
-    <div>
+    <form>
       <div>
         <div className="col-span-full">
           <label
@@ -14,15 +33,15 @@ export default function Create() {
               {/* <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" /> */}
               <div className="mt-4 flex text-sm leading-6 text-gray-600">
                 <label
-                  htmlFor="file-upload"
+                  htmlFor="file"
                   className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                 >
                   <span>Upload a file</span>
                   <input
-                    id="file-upload"
-                    name="file-upload"
+                    id="file"
                     type="file"
                     className="sr-only"
+                    {...register("file")}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>
@@ -192,6 +211,6 @@ export default function Create() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
