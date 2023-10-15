@@ -1,15 +1,14 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import styles from "./page.module.css";
+import styles from "./home.module.css";
 import Image from "next/image";
-import axios from "axios";
 import AssetOverview from "./components/asset-overview";
 
-// TODO: HTML structure for home page
-// 0. add commercial real estate to collection
-// 1. call reservoir directly
-export default async function page() {
+interface HomeProps {
+  data: any;
+}
+
+export function Home({ data }: HomeProps) {
   const mockData = ["1", "2", "3", "4", "5"];
-  const data = await getTokens();
 
   data.tokens.map((token: any) => {
     return console.log(token.token.image);
@@ -44,33 +43,19 @@ export default async function page() {
             <span className="text-3xl">Top Performers</span>
           </div>
           {/*  abstract into component */}
-          {data.tokens.length > 0 ? (
+          {data.tokens.length > 0 &&
             data.tokens.map((obj: any) => (
               <AssetOverview
                 title={obj.token.name}
                 imageUrl={obj.token.image}
                 key={obj.token.tokenId}
               />
-            ))
-          ) : (
-            <>Loading...</>
-            // <Suspense fallback={<Loading />} />
-          )}
+            ))}
         </div>
       </main>
       <footer></footer>
     </div>
   );
 }
-// continue here
-async function getTokens() {
-  const { data } = await axios.get(
-    "https://api-goerli.reservoir.tools/tokens/v6",
-    {
-      params: { collection: "0x83114eabba1984751f19d6cc2acb940fbc45fc48" },
-    }
-  );
-  return data;
-}
 
-// Add getStaticProps
+export default Home;
