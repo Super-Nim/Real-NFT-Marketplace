@@ -33,7 +33,7 @@ export function Home({ data }: HomeProps) {
                 width="40"
                 height="40"
               />
-              Ethereum
+              Ethereum via Cloudfront CDN
             </span>
 
             <h2>Find Multi-chain Real Estate near you!</h2>
